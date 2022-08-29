@@ -1,0 +1,9 @@
+h1 {
+text-align: center;
+}
+
+.game-table td {
+    width: 10em;
+    height: 10em;
+    border: 1px solid #999;
+}
