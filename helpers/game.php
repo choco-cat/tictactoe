@@ -1,6 +1,9 @@
 <?php
+use classes\Gamer;
+
 const SYMBOL_BOT = '0';
-require_once('./../classes/Gamer.php');
+define('BASE_PATH', dirname(realpath(__FILE__)) . '/');
+include (BASE_PATH . 'autoload.php');
 
 $data = $_POST;
 if (!$data['board']) {

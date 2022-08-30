@@ -1,5 +1,7 @@
 <?php
 
+namespace classes;
+
 class Gamer
 {
     const BOARD_SIZE = 3;
