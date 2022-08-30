@@ -1,9 +1,11 @@
 $(document).ready(function () {
-    getBoard();
     $('.game-table td').click(
         function () {
+            if ($(this).html() != '') {
+                return;
+            }
             $(this).html('X');
-            sendData({row: $(this).parent().index(), col: $(this).index()}, './helpers/game.php');
+            sendData({board: getBoard()}, './helpers/game.php');
             return false;
         }
     );
@@ -14,7 +16,7 @@ function getBoard() {
     $('.game-table td').each(function () {
         board[$(this).parent().index()][$(this).index()] = $(this).text();
     });
-    console.log(board);
+    return(board);
 };
 
 function sendData(data, url) {
@@ -24,7 +26,9 @@ function sendData(data, url) {
         dataType: 'html',
         data: data,
         success: function (response) {
-            result = $.parseJSON(response);
+            const result = $.parseJSON(response);
+            const row = $('.game-table tr').eq(result.row);
+            row.children().eq(result.col).html('0');
         },
         error: function (response) {
             console.log('Ошибка сервера!');
