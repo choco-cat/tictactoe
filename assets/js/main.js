@@ -27,8 +27,14 @@ function sendData(data, url) {
         data: data,
         success: function (response) {
             const result = $.parseJSON(response);
-            const row = $('.game-table tr').eq(result.row);
-            row.children().eq(result.col).html('0');
+            if (result.step) {
+                const row = $('.game-table tr').eq(result.step.row);
+                row.children().eq(result.step.col).html(result.step.symb);
+            }
+            if (result.message) {
+                setTimeout(() => alert(result.message), 100);
+                return;
+            }
         },
         error: function (response) {
             console.log('Ошибка сервера!');
