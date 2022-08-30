@@ -1,7 +1,6 @@
 <?php
 use classes\Gamer;
 
-const SYMBOL_BOT = '0';
 define('BASE_PATH', dirname(realpath(__FILE__)) . '/');
 include (BASE_PATH . 'autoload.php');
 
@@ -18,7 +17,6 @@ if ($message) {
     exit();
 }
 $step = $gamer->nextStep();
-$step['symb'] = SYMBOL_BOT;
 
 $message = $gamer->checkGameOverBot($step);
 

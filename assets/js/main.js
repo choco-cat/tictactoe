@@ -1,13 +1,15 @@
+function clickOnCell() {
+    if ($(this).html() !== '') {
+        return;
+    }
+    $(this).html('X');
+    sendData({board: getBoard()}, './helpers/game.php');
+    return false;
+}
+
 $(document).ready(function () {
-    $('.game-table td').click(
-        function () {
-            if ($(this).html() != '') {
-                return;
-            }
-            $(this).html('X');
-            sendData({board: getBoard()}, './helpers/game.php');
-            return false;
-        }
+    $('.game-table').on(
+        "click", 'td', clickOnCell
     );
 });
 
@@ -16,7 +18,7 @@ function getBoard() {
     $('.game-table td').each(function () {
         board[$(this).parent().index()][$(this).index()] = $(this).text();
     });
-    return(board);
+    return (board);
 };
 
 function sendData(data, url) {
@@ -32,6 +34,9 @@ function sendData(data, url) {
                 row.children().eq(result.step.col).html(result.step.symb);
             }
             if (result.message) {
+                $('.game-table').off(
+                    "click", 'td', clickOnCell
+                );
                 setTimeout(() => alert(result.message), 100);
                 return;
             }

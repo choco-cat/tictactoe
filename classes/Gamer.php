@@ -5,8 +5,10 @@ namespace classes;
 class Gamer
 {
     const BOARD_SIZE = 3;
+    const SYMBOL_BOT = '0';
+    const SYMBOL_USER = 'X';
     public $board = array();
-
+    public $step = array('symb' => self::SYMBOL_BOT);
     public function __construct($board)
     {
         $this->board = $board;
@@ -14,57 +16,38 @@ class Gamer
 
     public function nextStep()
     {
-        foreach ($this->board as $indexRow => $row) {
-            foreach ($row as $indexColumn => $cell) {
-                if ($cell === '') {
-                    if ($this->checkLine($this->board, SYMBOL_BOT, $indexRow, $indexColumn)) {
-                        return array(
-                            'row' => $indexRow,
-                            'col' => $indexColumn
-                        );
-                    }
-                }
-            }
-        }
-
         if ($this->board[1][1] === '') {
-            return array(
-                'row' => 1,
-                'col' => 1
-            );
+            $this->step['row'] = 1;
+            $this->step['col'] = 1;
+            return $this->step;
         }
         for ($rowIndex = 0; $rowIndex < self::BOARD_SIZE - 1; $rowIndex += 2) {
             for ($colIndex = 0; $colIndex < self::BOARD_SIZE - 1; $colIndex += 2) {
                 if ($this->board[$rowIndex][$colIndex] === '') {
-                    return array(
-                        'row' => $rowIndex,
-                        'col' => $colIndex
-                    );
-                    break;
+                    $this->step['row'] = $rowIndex;
+                    $this->step['col'] = $colIndex;
+                    return $this->step;
                 }
             }
         }
-        foreach ($this->board as $indexRow => $row) {
-            foreach ($row as $indexColumn => $cell) {
+        foreach ($this->board as $rowIndex => $row) {
+            foreach ($row as $colIndex => $cell) {
                 if ($cell === '') {
-                    return array(
-                        'row' => $indexRow,
-                        'col' => $indexColumn
-                    );
-                    break;
+                    $this->step['row'] = $rowIndex;
+                    $this->step['col'] = $colIndex;
+                    return $this->step;
                 }
             }
         }
-        return array(
-            'row' =>'',
-            'col' => ''
-        );
+        $this->step['row'] = '';
+        $this->step['col'] = '';
+        return $this->step;
     }
 
     public function checkGameOverUser()
     {
         $message = '';
-        if ($this->checkDiagonal('X') || $this->checkLine('X')) {
+        if ($this->checkDiagonal(self::SYMBOL_USER) || $this->checkLine(self::SYMBOL_USER)) {
             $message = 'Congratulations! You won the game!';
         }
         return $message;
@@ -72,9 +55,9 @@ class Gamer
 
     public function checkGameOverBot($step)
     {
-        $this->board[$step['row']][$step['col']] = '0';
+        $this->board[$step['row']][$step['col']] = self::SYMBOL_BOT;
         $message = '';
-        if ($this->checkDiagonal('0') || $this->checkLine('0')) {
+        if ($this->checkDiagonal(self::SYMBOL_BOT) || $this->checkLine(self::SYMBOL_BOT)) {
             $message = 'You lost the game!';
         }
         return $message;
