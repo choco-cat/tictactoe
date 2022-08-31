@@ -1,5 +1,8 @@
 <?php
 namespace classes;
+use PDO;
+
+include('./../configDB.php');
 
 class Gamer
 {
@@ -7,10 +10,14 @@ class Gamer
     const SYMBOL_BOT = '0';
     const SYMBOL_USER = 'X';
     public $board = array();
+    public $db;
     public $step = array('symb' => self::SYMBOL_BOT);
     public function __construct($board)
     {
         $this->board = $board;
+        $this->db = new Db(DATABASE_HOST, DATABASE_NAME, DATABASE_USER, DATABASE_PASSWORD);
+        $this->db->setFetchMode(PDO::FETCH_ASSOC);
+        session_start();
     }
 
     public function nextStep()
@@ -47,7 +54,8 @@ class Gamer
     {
         $message = '';
         if ($this->checkDiagonal(self::SYMBOL_USER) || $this->checkLine(self::SYMBOL_USER)) {
-            $message = 'Congratulations! You won the game!';
+            $this->updateUserLevel(1);
+            $message = 'Поздравляем! Вы победили!!!';
         }
         return $message;
     }
@@ -57,11 +65,21 @@ class Gamer
         $this->board[$step['row']][$step['col']] = self::SYMBOL_BOT;
         $message = '';
         if ($this->checkDiagonal(self::SYMBOL_BOT) || $this->checkLine(self::SYMBOL_BOT)) {
-            $message = 'You lost the game!';
+            $this->updateUserLevel(-1);
+            $message = 'Вы проиграли :(';
         }
         return $message;
     }
 
+    private function updateUserLevel($ball)
+    {
+        $login = $_SESSION['login'] ?? false;
+        if ($login) {
+           $this->db->fetch('UPDATE `users` SET level = level + '
+               . $ball . ' WHERE login = "'. $login
+               . '" AND level + ' . $ball . ' >= 1');
+        }
+    }
 
     private function checkLine($symb)
     {

@@ -1,7 +1,7 @@
 <?php
 use classes\Router;
 
-include('config.php');
+include('common.php');
 
 new Router();
 
