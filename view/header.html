@@ -4,23 +4,31 @@
     <link href="./assets/css/main.css" rel="stylesheet">
 </head>
 <body>
-<nav>
-    <ul>
-        <li><a href="./">Главная</a></li>
-        {% if not auth %}
-        <li><a href="./registration">Регистрация</a></li>
-        <li><a href="./login">Авторизация</a></li>
-        {% else %}
-        <li><a href="./login/logout">Выйти</a></li>
-        {% endif %}
-    </ul>
-</nav>
+<header>
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="./">Главная</a></li>
+                {% if not auth %}
+                <li><a href="./registration">Регистрация</a></li>
+                <li><a href="./login">Авторизация</a></li>
+                {% else %}
+                <li><a href="./login/logout">Выйти</a></li>
+                {% endif %}
+                <hr/>
+            </ul>
+        </div>
+    </nav>
+</header>
 <main>
-    {% if login %}
-    <p>Пользователь: {{login}}</p>
-    {% endif %}
-    {% if level %}
-    <p>Уровень: <span id="level">{{level}}</span></p>
-    {% endif %}
-    <h1>Крестики-нолики</h1>
-    <h2>{{page_title}}</h2>
+    <div class="container">
+        {% if login %}
+        <div class="statistics">
+            <p>Пользователь: {{login}}</p>
+            {% endif %}
+            {% if level %}
+            <p>Уровень: <span id="level">{{level}}</span></p>
+        </div>
+        {% endif %}
+        <h1>Крестики-нолики</h1>
+        <h2>{{page_title}}</h2>

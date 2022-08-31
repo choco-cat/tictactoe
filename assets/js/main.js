@@ -53,7 +53,7 @@ function sendData(data, url) {
             const result = $.parseJSON(response);
             if (result.step) {
                 const row = $('.game-table tr').eq(result.step.row);
-                row.children().eq(result.step.col).html(result.step.symb);
+                setTimeout(() => row.children().eq(result.step.col).html(result.step.symb), 400);
             }
             if (result.message) {
                 $('.game-table').off(
