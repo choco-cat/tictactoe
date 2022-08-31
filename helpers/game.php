@@ -11,13 +11,14 @@ if (!$data['board']) {
 $board = $data['board'];
 $gamer = new Gamer($board);
 
-$message = $gamer->checkGameOverUser();
-if ($message) {
-    echo json_encode(array('message' => $message));
+$response = $gamer->checkGameOverUser();
+if ($response['message']) {
+    echo json_encode($response);
     exit();
 }
-$step = $gamer->nextStep();
 
-$message = $gamer->checkGameOverBot($step);
+$gamer->nextStep();
 
-echo json_encode(array('step' => $step, 'message' => $message));
+$response = $gamer->checkGameOverBot();
+
+echo json_encode($response);

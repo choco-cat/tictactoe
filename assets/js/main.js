@@ -17,6 +17,7 @@ $(document).ready(function () {
     $('#reset-game').click(
         function () {
             $('.game-table td').html('');
+            $('h2').html('Игра');
             $('.game-table').on(
                 "click", 'td', clickOnCell
             );
@@ -58,7 +59,11 @@ function sendData(data, url) {
                 $('.game-table').off(
                     "click", 'td', clickOnCell
                 );
+                $('h2').html(result.message);
                 setTimeout(() => alert(result.message), 100);
+                if(result.level) {
+                    $('#level').html(result.level);
+                }
                 return;
             }
         },

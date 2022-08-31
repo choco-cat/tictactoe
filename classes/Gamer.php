@@ -10,7 +10,9 @@ class Gamer
     const SYMBOL_BOT = '0';
     const SYMBOL_USER = 'X';
     public $board = array();
-    public $db;
+    private $db;
+    private $level = 1;
+    private $message = '';
     public $step = array('symb' => self::SYMBOL_BOT);
     public function __construct($board)
     {
@@ -47,28 +49,28 @@ class Gamer
         }
         $this->step['row'] = '';
         $this->step['col'] = '';
-        return $this->step;
+        //return $this->step;
     }
 
     public function checkGameOverUser()
     {
-        $message = '';
+        $this->message = '';
         if ($this->checkDiagonal(self::SYMBOL_USER) || $this->checkLine(self::SYMBOL_USER)) {
-            $this->updateUserLevel(1);
-            $message = 'Поздравляем! Вы победили!!!';
+            $this->level = $this->updateUserLevel(1);
+            $this->message = 'Поздравляем! Вы победили!!!';
         }
-        return $message;
+        return array('message' => $this->message, 'level' => $this->level);
     }
 
-    public function checkGameOverBot($step)
+    public function checkGameOverBot()
     {
-        $this->board[$step['row']][$step['col']] = self::SYMBOL_BOT;
-        $message = '';
+        $this->board[$this->step['row']][$this->step['col']] = self::SYMBOL_BOT;
+        $this->message = '';
         if ($this->checkDiagonal(self::SYMBOL_BOT) || $this->checkLine(self::SYMBOL_BOT)) {
-            $this->updateUserLevel(-1);
-            $message = 'Вы проиграли :(';
+            $this->level = $this->updateUserLevel(-1);
+            $this->message = 'Вы проиграли :(';
         }
-        return $message;
+        return array('message' => $this->message, 'level' => $this->level, 'step' => $this->step);
     }
 
     private function updateUserLevel($ball)
@@ -79,6 +81,8 @@ class Gamer
                . $ball . ' WHERE login = "'. $login
                . '" AND level + ' . $ball . ' >= 1');
         }
+        $level = $this->db->fetch('SELECT level FROM `users`  WHERE login = "' . $login . '"');
+        return count($level) ? $level[0]['level'] : 1;
     }
 
     private function checkLine($symb)
