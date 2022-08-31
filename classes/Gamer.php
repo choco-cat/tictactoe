@@ -47,9 +47,7 @@ class Gamer
                 }
             }
         }
-        $this->step['row'] = '';
-        $this->step['col'] = '';
-        //return $this->step;
+        $this->step = array();
     }
 
     public function checkGameOverUser()
@@ -57,18 +55,22 @@ class Gamer
         $this->message = '';
         if ($this->checkDiagonal(self::SYMBOL_USER) || $this->checkLine(self::SYMBOL_USER)) {
             $this->level = $this->updateUserLevel(1);
-            $this->message = 'Поздравляем! Вы победили!!!';
+            $this->message = 'Поздравляю! Ты победил!!!';
         }
         return array('message' => $this->message, 'level' => $this->level);
     }
 
     public function checkGameOverBot()
     {
-        $this->board[$this->step['row']][$this->step['col']] = self::SYMBOL_BOT;
-        $this->message = '';
-        if ($this->checkDiagonal(self::SYMBOL_BOT) || $this->checkLine(self::SYMBOL_BOT)) {
-            $this->level = $this->updateUserLevel(-1);
-            $this->message = 'Вы проиграли :(';
+        if(!count($this->step)) {
+            $this->message = 'Мы с тобой равных интеллектуальных возможностей.';
+        } else {
+            $this->board[$this->step['row']][$this->step['col']] = self::SYMBOL_BOT;
+            $this->message = '';
+            if ($this->checkDiagonal(self::SYMBOL_BOT) || $this->checkLine(self::SYMBOL_BOT)) {
+                $this->level = $this->updateUserLevel(-1);
+                $this->message = 'Ты проиграл :(';
+            }
         }
         return array('message' => $this->message, 'level' => $this->level, 'step' => $this->step);
     }

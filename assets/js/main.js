@@ -60,7 +60,6 @@ function sendData(data, url) {
                     "click", 'td', clickOnCell
                 );
                 $('h2').html(result.message);
-                setTimeout(() => alert(result.message), 100);
                 if(result.level) {
                     $('#level').html(result.level);
                 }
