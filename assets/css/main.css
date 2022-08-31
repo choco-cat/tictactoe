@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: cursive, sans-serif;
 }
 
 html {
@@ -8,7 +9,6 @@ html {
 }
 
 body {
-    font-family: cursive, sans-serif;
     background: url('images/background11.png') repeat;
     color: #333333;
     display: flex;
@@ -35,12 +35,39 @@ footer {
     color: #ffffff;
 }
 
+form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin: 3em auto;
+    gap: 1em;
+}
+
+input {
+    line-height: 1em;
+    font-size: 1.2em;
+    padding: 0.6em;
+    border-radius: 5px;
+    border: 1px solid #ada7a7;
+}
+
+label {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 0.3em;
+}
+
 .statistics {
-    padding: 2em;
+    padding-top: 2em;
 }
 
 h1, h2 {
-text-align: center;
+    text-align: center;
+}
+
+h1 {
+    margin-top: 1em;
 }
 
 nav {
@@ -116,16 +143,36 @@ hr {
     text-decoration: none;
     display: inline-block;
     padding: 15px 30px;
-    margin: 10px 20px;
-    border-radius: 10px;
+    border-radius: 5px;
     box-shadow: 0 0 40px 40px #F137A6 inset, 0 0 0 0 #F137A6;
     font-weight: bold;
     letter-spacing: 2px;
     color: white;
     transition: .15s ease-in-out;
     font-size: 1.1em;
+    cursor: pointer;
+    margin-top: 0.3em;
+    border: none;
 }
 .glow-button:hover {
     box-shadow: 0 0 10px 0 #F137A6 inset, 0 0 10px 4px #F137A6;
     color: #F137A6;
+}
+
+.message {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.message > p {
+    background: #f137a6;
+    display: inline-flex;
+    padding: 2em;
+    border-radius: 5px;
+    color: #fff;
+    box-shadow: 0Px 0px 50px rgb(52 52 52);
 }

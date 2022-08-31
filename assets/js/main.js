@@ -53,7 +53,7 @@ function sendData(data, url) {
             const result = $.parseJSON(response);
             if (result.step) {
                 const row = $('.game-table tr').eq(result.step.row);
-                setTimeout(() => row.children().eq(result.step.col).html(result.step.symb), 400);
+                setTimeout(() => row.children().eq(result.step.col).html(result.step.symb), 200);
             }
             if (result.message) {
                 $('.game-table').off(
@@ -85,7 +85,7 @@ function sendAjaxForm(ajax_form, url, redirectUrl, message) {
                 result.errors.forEach(error => $('#' + ajax_form).after(`<p class="error">${error}</p>`))
             } else {
                 setTimeout(() => window.location.href = redirectUrl, 1000);
-                $('#' + ajax_form).after(`<p class="message">${message}</p>`);
+                $('#' + ajax_form).after(`<div class="message"><p>${message}</p></div>`);
                 $('#' + ajax_form)[0].reset();
             }
         },
