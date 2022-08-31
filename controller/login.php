@@ -18,7 +18,7 @@ class Login extends Controller
     {
         $this->view->set_filename('login');
         $template_data = array(
-            'page_title' => 'Login Page'
+            'page_title' => 'Авторизация'
         );
         $this->view->render($template_data);
     }
@@ -28,7 +28,6 @@ class Login extends Controller
         if (@$_SERVER['HTTP_X_REQUESTED_WITH'] != 'XMLHttpRequest') {
             echo 'Page not work!';
         }
-        //require('./model/login.php');
         $loginModel = new LoginModel();
         $user_data = $_POST;
         if ($user_data) {

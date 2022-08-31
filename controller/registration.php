@@ -19,7 +19,7 @@ class Registration extends Controller
     {
         $this->view->set_filename('registration');
         $template_data = array(
-            'page_title' => 'Registration Page'
+            'page_title' => 'Регистрация'
         );
 
         $this->view->render($template_data);
@@ -29,10 +29,8 @@ class Registration extends Controller
     {
         if (@$_SERVER['HTTP_X_REQUESTED_WITH'] != 'XMLHttpRequest') {
 
-            echo'Page not work!';
-            //throw new Error('Page not work');
+            echo 'Страница недоступна!';
         }
-        //require('./model/registration.php');
         $registration_model = new RegistrationModel();
         $user_data = $_POST;
         if ($user_data) {

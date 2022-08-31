@@ -21,7 +21,7 @@ class Index extends Controller
         $this->startSession();
         $this->view->set_filename('index');
         $template_data = array(
-            'page_title' => 'Index Page',
+            'page_title' => 'Игра',
             'auth' => $this->auth,
             'login' => $_SESSION['login'] ?? false,
         );

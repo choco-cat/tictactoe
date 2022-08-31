@@ -16,5 +16,8 @@
     </ul>
 </nav>
 <main>
-<h1>Игра крестики-нолики
-</h1>
+    {% if login %}
+    <p>Hello, {{login}}</p>
+    {% endif %}
+    <h1>Крестики-нолики</h1>
+    <h2>{{page_title}}</h2>
