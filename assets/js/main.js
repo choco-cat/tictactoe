@@ -14,6 +14,15 @@ $(document).ready(function () {
             return false;
         }
     );
+    $('#reset-game').click(
+        function () {
+            $('.game-table td').html('');
+            $('.game-table').on(
+                "click", 'td', clickOnCell
+            );
+            return false;
+        }
+    );
 });
 
 function clickOnCell() {
@@ -30,7 +39,7 @@ function getBoard() {
     $('.game-table td').each(function () {
         board[$(this).parent().index()][$(this).index()] = $(this).text();
     });
-    return (board);
+    return board;
 };
 
 function sendData(data, url) {
