@@ -8,7 +8,7 @@ class LoginModel extends Model
     {
         $userRow = $this->db->fetch('SELECT login, password FROM `users` WHERE login="' . $data['login'] . '"');
         if (!count($userRow)) {
-            $this->errors['login'] = 'Логин не существует!';
+            $this->errors[] = 'Логин не существует!';
             return false;
         }
         $salt = $data['login'];

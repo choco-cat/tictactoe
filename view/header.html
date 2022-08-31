@@ -17,7 +17,10 @@
 </nav>
 <main>
     {% if login %}
-    <p>Hello, {{login}}</p>
+    <p>Пользователь: {{login}}</p>
+    {% endif %}
+    {% if level %}
+    <p>Уровень: {{level}}</p>
     {% endif %}
     <h1>Крестики-нолики</h1>
     <h2>{{page_title}}</h2>

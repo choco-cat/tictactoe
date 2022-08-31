@@ -4,13 +4,13 @@ $(document).ready(function () {
     );
     $('#submit').click(
         function () {
-            sendAjaxForm('registration-form', './registration/send', 'Вы успешно зарегистрировались');
+            sendAjaxForm('registration-form', './registration/send', './login', 'Вы успешно зарегистрировались');
             return false;
         }
     );
     $('#submit-login').click(
         function () {
-            sendAjaxForm('login-form', './login/send', 'Вы успешно авторизовались');
+            sendAjaxForm('login-form', './login/send', './', 'Вы успешно авторизовались');
             return false;
         }
     );
@@ -59,7 +59,7 @@ function sendData(data, url) {
     });
 }
 
-function sendAjaxForm(ajax_form, url, message) {
+function sendAjaxForm(ajax_form, url, redirectUrl, message) {
     $('.error').remove();
     $.ajax({
         url: url,
@@ -71,7 +71,7 @@ function sendAjaxForm(ajax_form, url, message) {
             if (typeof result === 'object' && Object.keys(result.errors).length > 0) {
                 result.errors.forEach(error => $('#' + ajax_form).after(`<p class="error">${error}</p>`))
             } else {
-                setTimeout(() => window.location.href = './', 1000);
+                setTimeout(() => window.location.href = redirectUrl, 1000);
                 $('#' + ajax_form).after(`<p class="message">${message}</p>`);
                 $('#' + ajax_form)[0].reset();
             }

@@ -1,6 +1,7 @@
 <?php
 namespace controller;
 
+use model\IndexModel;
 use classes\Controller;
 
 /**
@@ -22,9 +23,15 @@ class Index extends Controller
         $this->view->set_filename('index');
         $template_data = array(
             'page_title' => 'Игра',
-            'auth' => $this->auth,
-            'login' => $_SESSION['login'] ?? false,
         );
+        if ($this->auth) {
+            $indexModel = new IndexModel();
+            $template_data += array(
+                'auth' => $this->auth,
+                'login' => $_SESSION['login'] ?? false,
+                'level' => $indexModel->getUserLevel($_SESSION['login']),
+            );
+        }
         $this->view->render($template_data);
     }
 
