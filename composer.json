@@ -1,0 +1,5 @@
+{
+    "require": {
+        "../vendor/twig/twig": "v3.4.1"
+    }
+}
