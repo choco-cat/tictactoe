@@ -59,6 +59,8 @@ function sendData(data, url) {
                 $('.game-table').off(
                     "click", 'td', clickOnCell
                 );
+                const audio = new Audio('./assets/sound/1.mp3');
+                audio.play();
                 $('h2').html(result.message);
                 if(result.level) {
                     $('#level').html(result.level);

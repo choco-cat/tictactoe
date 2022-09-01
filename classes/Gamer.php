@@ -16,12 +16,19 @@ class Gamer
     private $level = 1;
     private $message = '';
     public $step = array('symb' => self::SYMBOL_BOT);
+
     public function __construct($board)
     {
         $this->board = $board;
         $this->db = new Db(DATABASE_HOST, DATABASE_NAME, DATABASE_USER, DATABASE_PASSWORD);
         $this->db->setFetchMode(PDO::FETCH_ASSOC);
         session_start();
+    }
+
+    private function setStep($rowIndex, $colIndex)
+    {
+        $this->step['row'] = $rowIndex;
+        $this->step['col'] = $colIndex;
     }
 
     public function nextStep()
@@ -34,8 +41,7 @@ class Gamer
                     $cloneBoard[$rowIndex][$colIndex] = self::SYMBOL_BOT;
                     if ($this->checkLine(self::SYMBOL_BOT,  $cloneBoard)
                         || $this->checkDiagonal(self::SYMBOL_BOT,  $cloneBoard)) {
-                        $this->step['row'] = $rowIndex;
-                        $this->step['col'] = $colIndex;
+                        $this->setStep($rowIndex, $colIndex);
                         return $this->step;
                     }
                 }
@@ -49,10 +55,9 @@ class Gamer
                     $cloneBoard[$rowIndex][$colIndex] = self::SYMBOL_USER;
                     if ($this->checkLine(self::SYMBOL_USER,  $cloneBoard)
                         || $this->checkDiagonal(self::SYMBOL_USER,  $cloneBoard)) {
-                        $this->step['row'] = $rowIndex;
-                        $this->step['col'] = $colIndex;
+                        $this->setStep($rowIndex, $colIndex);
                         return $this->step;
-                    }
+                     }
                 }
             }
         }
@@ -64,8 +69,7 @@ class Gamer
         for ($rowIndex = 0; $rowIndex < self::BOARD_SIZE - 1; $rowIndex += 2) {
             for ($colIndex = 0; $colIndex < self::BOARD_SIZE - 1; $colIndex += 2) {
                 if ($this->board[$rowIndex][$colIndex] === '') {
-                    $this->step['row'] = $rowIndex;
-                    $this->step['col'] = $colIndex;
+                    $this->setStep($rowIndex, $colIndex);
                     return $this->step;
                 }
             }
@@ -73,13 +77,12 @@ class Gamer
         foreach ($this->board as $rowIndex => $row) {
             foreach ($row as $colIndex => $cell) {
                 if ($cell === '') {
-                    $this->step['row'] = $rowIndex;
-                    $this->step['col'] = $colIndex;
+                    $this->setStep($rowIndex, $colIndex);
                     return $this->step;
                 }
             }
         }
-        $this->step = array();
+        return $this->step;
     }
 
     public function checkGameOverUser()
