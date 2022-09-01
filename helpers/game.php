@@ -1,4 +1,5 @@
 <?php
+
 use classes\Gamer;
 
 define('BASE_PATH', dirname(realpath(__FILE__)) . '/');

@@ -1,6 +1,9 @@
 <?php
+
 namespace classes;
+
 use PDO;
+
 /**
  * Main View Loader
  */

@@ -1,5 +1,7 @@
 <?php
+
 namespace classes;
+
 use controller\Index;
 use controller\Login;
 use controller\Registration;

@@ -1,5 +1,7 @@
 <?php
+
 namespace model;
+
 use classes\Model;
 
 class IndexModel extends Model
