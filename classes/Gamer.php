@@ -98,7 +98,7 @@ class Gamer
 
     public function checkGameOverBot()
     {
-        if (!count($this->step)) {
+        if (!isset($this->step['row'])) {
             $this->message = 'Мы с тобой равных интеллектуальных возможностей.';
         } else {
             $this->board[$this->step['row']][$this->step['col']] = self::SYMBOL_BOT;
