@@ -12,14 +12,7 @@ class Router
         $url = rtrim($url, '/');
         $urlParts = explode('/', $url);
         $baseUrl = $urlParts[0];
-        $file = BASE_PATH . 'controller/' . $baseUrl . '.php';
         $params = $urlParts[1] ?? null;
-        if (file_exists($file)) {
-            //require $file;
-        } else {
-            new Error('ERROR!');
-            return false;
-        }
 
         switch ($baseUrl) {
             case 'login':
